@@ -8,5 +8,10 @@
 
 import Foundation
 
-print("Hello, World!")
+func main() {
 
+    let mesh = STLLoadFile("/Users/takev/Projects/DimensionsCAM/DimensionsCAM/example_object.stl")
+    Swift.print(mesh)
+}
+
+main()
