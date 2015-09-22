@@ -10,107 +10,149 @@ import Foundation
 import simd
 
 class TriangleMesh {
-    var name:                   String
-    var triangles_by_centroid:  [double4:Triangle]
-    var vertices_by_point:      [double4:Vertex]
+    var triangle_by_centroid:   [Int64:Triangle]
+    var triangles_by_vertex:    [Int64:Set<Triangle>]
+    var triangles_by_edge:      [Int64:Set<Triangle>]
 
-    init(name: String) {
-        self.name = name
-        triangles_by_centroid = [:]
-        vertices_by_point = [:]
+    init() {
+        triangle_by_centroid = [:]
+        triangles_by_vertex = [:]
+        triangles_by_edge = [:]
     }
 
     func copy() -> TriangleMesh {
-        let new_mesh = TriangleMesh(name: name + "(copy)")
+        let new_mesh = TriangleMesh()
 
-        for (_, triangle) in triangles_by_centroid {
-            new_mesh.addTriangle(triangle.points, normal: triangle.normal)
+        for (_, triangle) in triangle_by_centroid {
+            new_mesh.addTriangle(triangle)
         }
 
         return new_mesh
     }
 
-    func addTriangle(points: Set<double4>, normal: double4) {
-        assert(points.count == 3, "Expecting 3 points for a triangle")
-
-        var vertices = Set<Vertex>()
-        for point in points {
-            let vertex = vertices_by_point.setdefault(point, default_value:Vertex(point))
-            vertices.insert(vertex)
+    func contains(triangle: Triangle) -> Bool {
+        if let _ = triangle_by_centroid[triangle.gridId] {
+            return true
+        } else {
+            return false
         }
+    }
 
-        let triangle = Triangle(vertices: vertices, normal: normal)
-
-        for vertex in vertices {
-            vertex.addSimplex(triangle)
+    func addTriangle(triangle: Triangle) {
+        triangle_by_centroid[triangle.gridId] = triangle
+        for vertex in triangle {
+            var vertex_triangles = triangles_by_vertex.setdefault(vertex.gridId, default_value: Set<Triangle>())
+            vertex_triangles.insert(triangle)
         }
-
-        triangles_by_centroid[triangle.centroid] = triangle
+        for edge in triangle.edges {
+            var edge_triangles = triangles_by_edge.setdefault(edge.gridId, default_value: Set<Triangle>())
+            edge_triangles.insert(triangle)
+        }
     }
 
     func removeTriangle(triangle: Triangle) {
         for vertex in triangle {
-            vertex.removeSimplex(triangle)
+            if var vertex_triangles = triangles_by_vertex[vertex.gridId] {
+                vertex_triangles.remove(triangle)
+            }
         }
-        triangles_by_centroid.removeValueForKey(triangle.centroid)
+        for edge in triangle.edges {
+            if var edge_triangles = triangles_by_edge[edge.gridId] {
+                edge_triangles.remove(triangle)
+            }
+        }
+        triangle_by_centroid.removeValueForKey(triangle.centroid.gridId)
     }
 
-    /// Gather all vertices of the lowest order.
-    ///
-    func getLowOrderVertices(minimum_order: Int = 3) -> Set<Vertex> {
-        // Set lowest_found_order to the maximum possible.
-        var lowest_found_order: Int? = nil
-        var found_vertices = Set<Vertex>()
+    func getNeighbours(current: Triangle) -> Set<Triangle> {
+        var neighbours = Set<Triangle>()
 
-        for vertex in vertices_by_point.values {
-            if vertex.count < minimum_order {
-                continue
+        for edge in current.edges {
+            if let triangles = triangles_by_edge[edge.centroid.gridId] {
+                assert(triangles.count == 2, "Each edge should have two triangles.")
+                for neighbour in triangles {
+                    if (neighbour == current) {
+                        continue
+                    } else {
+                        neighbours.insert(neighbour)
+                    }
+                }
+            } else {
+                assertionFailure("Could not find current triangle in triangles_by_edge")
             }
-
-            if lowest_found_order == nil || vertex.count < lowest_found_order! {
-                // This vertex is lower then previous found, clear the set.
-                lowest_found_order = vertex.count
-                found_vertices.removeAll()
-            }
-            found_vertices.insert(vertex)
         }
-        return found_vertices
     }
-
-    /* func triangulateAtVertex(vertex: Vertex) -> Tetrahedron {
-
-    } */
 
     /// Find a neighbour
-    func getConvexNeighbour(triangle: Triangle) -> Triangle? {
-        for vertex in triangle.vertices {
-            for candidate in vertex.simplices as! Set<Triangle> {
-                let shared_vertices = triangle.vertices.intersect(candidate.vertices)
-
-                // A neighbour has exactly n-1 vertices in common.
-                // A neighbour must be convex.
-                // A neighbour must not be in the same plane.
-                if (
-                    (shared_vertices.count == candidate.count - 1) &&
-                    triangle.isConvex(candidate) &&
-                    !triangle.isParralel(candidate)
-                ) {
-                    return candidate
-                }
+    func getConvexNeighbour(current: Triangle) -> Triangle? {
+        for candidate in getNeighbours(current) {
+            // A neighbour must be convex.
+            // A neighbour must not be in the same plane.
+            if current.isConvex(candidate) && !current.isParralel(candidate) {
+                return candidate
             }
         }
         return nil
     }
 
-    func triangulate() {
-        var tmp_mesh = self.copy()
+    // To remove a tetrahedron we need to find if its triangles belong to the mesh.
+    // If a triangle is part of the mesh, it simply needs to be removed.
+    // When a triangle isn't part of the mesh, the inverse triangle needs to be added.
+    func removeTetrahedron(tetrahedron: Tetrahedron) {
+        for triangle in tetrahedron.triangles {
+            if contains(triangle) {
+                removeTriangle(triangle)
+            } else {
+                addTriangle(-triangle)
+            }
+        }
+    }
 
-        for (_, triangle) in triangles_by_centroid {
+    // To add a tetrahedron we find if its triangles already belong to the mesh.
+    // If the inverse triangle is part of the mesh, it is removed.
+    // If the triangle isn't part of the mesh, the triangle is added.
+    // This is exactly the same as removeTetrahedron.
+    func addTetrahedron(tetrahedron: Tetrahedron) {
+        for triangle in tetrahedron.triangles {
+            if contains(-triangle) {
+                removeTriangle(-triangle)
+            } else {
+                assert(!contains(triangle), "Expect the triangle not to exist yet in the mesh.")
+                addTriangle(triangle)
+            }
+        }
+    }
+
+    func extractTetrahedron(t1: Triangle, _ t2: Triangle) -> Tetrahedron {
+            let not_ABC_vertices = t2 - t1
+            assert(not_ABC_vertices.count == 1, "Expect the two triangles of a tetrahedron to be neighbours and only have 1 vertex not in common")
+
+            let A = t1.A
+            let B = t1.B
+            let C = t1.C
+            let D = not_ABC_vertices[0]
+
+            let tetrahedron = Tetrahedron(A, B, C, D)
+
+            // Remove the tetrahedron from the model.
+            removeTetrahedron(tetrahedron)
+            return tetrahedron
+    }
+
+    func toTetrahedronMesh() -> TetrahedronMesh {
+        let tetrahedron_mesh = TetrahedronMesh(name: name + " Tetra")
+
+        for (_, triangle) in triangle_by_centroid {
             guard let neighbour = getConvexNeighbour(triangle) else {
                 continue
             }
 
+            let tetrahedron = extractTetrahedron(triangle, neighbour)
+
+            tetrahedron_mesh.addTetrahedron(tetrahedron)
         }
+
+        return tetrahedron_mesh
     }
 
 

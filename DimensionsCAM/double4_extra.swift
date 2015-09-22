@@ -9,23 +9,15 @@
 import Foundation
 import simd
 
-let DOUBLE4_GRID            = 0.0001
-let DOUBLE4_ONE_OVER_GRID   = 10000.0
+extension double4: Addible, Equatable {
+    var gridId: Int64 {
+        assert(abs(x) < 2000.0 && abs(y) < 2000.0 && abs(z) < 2000.0, "Expect a coord to be less than 2 meter")
 
-extension double4: Hashable {
-    var snapToGrid: double4 {
-        return round(self * DOUBLE4_ONE_OVER_GRID) * DOUBLE4_GRID
-    }
-
-    public var hashValue: Int {
-        // Get integer coordinates of the grid.
-        let tmp = round(self * DOUBLE4_ONE_OVER_GRID)
-
-        return (
-            Int(tmp.x).hashValue ^
-            Int(tmp.y).hashValue ^
-            Int(tmp.z).hashValue
-        )
+        var r: Int64
+        r =     ((Int64(round(x * 1000.0))      ) & 0x1fffff)
+        r = r | ((Int64(round(y * 1000.0)) << 21) & 0x1fffff)
+        r = r | ((Int64(round(z * 1000.0)) << 42) & 0x1fffff)
+        return r
     }
 
     public var length: Double {
@@ -47,10 +39,10 @@ extension double4: Hashable {
 public func ==(lhs: double4, rhs: double4) -> Bool {
     let tmp = abs(rhs - lhs)
     return (
-        tmp.x < DOUBLE4_GRID &&
-        tmp.y < DOUBLE4_GRID &&
-        tmp.z < DOUBLE4_GRID &&
-        tmp.w < DOUBLE4_GRID
+        tmp.x < 0.001 &&
+        tmp.y < 0.001 &&
+        tmp.z < 0.001 &&
+        tmp.w < 0.001
     )
 }
 
@@ -74,6 +66,17 @@ public func round(v: double4) -> double4 {
 }
 
 func ∙(lhs: double4, rhs: double4) -> Double {
-    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z + lhs.w * rhs.w
+    assert(lhs.w == 0.0 && rhs.w == 0.0, "Dot product should only be done on vectors, not points")
+    return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z
+}
+
+func ×(lhs: double4, rhs: double4) -> double4 {
+    assert(lhs.w == 0.0 && rhs.w == 0.0, "Cross product should only be done on vectors, not points")
+    return double4(
+        lhs.y * rhs.z - lhs.z * rhs.y,
+        lhs.z * rhs.x - lhs.x * rhs.z,
+        lhs.x * rhs.y - lhs.y * rhs.x,
+        0.0
+    )
 }
 
