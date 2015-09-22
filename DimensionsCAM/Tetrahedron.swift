@@ -63,7 +63,7 @@ class Tetrahedron: CollectionType, Hashable {
         case 1: return B
         case 2: return C
         case 3: return D
-        default: assertionFailure("Triangle only has three vertice.")
+        default: preconditionFailure("Triangle only has three vertice.")
         }
     }
 }

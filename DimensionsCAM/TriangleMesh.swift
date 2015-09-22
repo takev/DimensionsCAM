@@ -20,6 +20,9 @@ class TriangleMesh {
         triangles_by_edge = [:]
     }
 
+    func postProcess() {
+    }
+    
     func copy() -> TriangleMesh {
         let new_mesh = TriangleMesh()
 
@@ -81,6 +84,8 @@ class TriangleMesh {
                 assertionFailure("Could not find current triangle in triangles_by_edge")
             }
         }
+
+        return neighbours
     }
 
     /// Find a neighbour
@@ -140,7 +145,7 @@ class TriangleMesh {
     }
 
     func toTetrahedronMesh() -> TetrahedronMesh {
-        let tetrahedron_mesh = TetrahedronMesh(name: name + " Tetra")
+        let tetrahedron_mesh = TetrahedronMesh()
 
         for (_, triangle) in triangle_by_centroid {
             guard let neighbour = getConvexNeighbour(triangle) else {

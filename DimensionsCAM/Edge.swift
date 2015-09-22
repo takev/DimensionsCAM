@@ -34,7 +34,7 @@ struct Edge: CollectionType, Hashable {
         switch index {
         case 0: return A
         case 1: return B
-        default: assertionFailure("Triangle only has three vertice.")
+        default: preconditionFailure("Triangle only has three vertice.")
         }
     }
 }

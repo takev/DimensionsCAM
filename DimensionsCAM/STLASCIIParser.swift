@@ -12,14 +12,14 @@ import simd
 class STLASCIIParser {
     var optionalMesh        : TriangleMesh? = nil
     var normal              : double4       = double4()
-    var points              : Set<double4>  = Set<double4>()
+    var points              : [double4]     = []
 
     init() {
     }
 
     func parseLine(line: String, lineNr: Int, filename: String) -> Bool {
         if line.hasPrefix("solid") {
-            optionalMesh = TriangleMesh(name: filename)
+            optionalMesh = TriangleMesh()
             normal = double4()
 
         } else if line.hasPrefix("facet normal") {
@@ -39,7 +39,7 @@ class STLASCIIParser {
                 Swift.print("\(filename):\(lineNr) Cannot parse vertex '\(string_value).");
                 return false
             }
-            points.insert(double4(point, 1.0).snapToGrid)
+            points.append(double4(point, 1.0).snap)
 
         } else if line.hasPrefix("endloop") {
             if (points.count != 3) {
@@ -49,7 +49,8 @@ class STLASCIIParser {
 
         } else if line.hasPrefix("endfacet") {
             if let mesh = optionalMesh {
-                mesh.addTriangle(points, normal: normal)
+                let triangle = Triangle(points[0], points[1], points[2])
+                mesh.addTriangle(triangle)
             } else {
                 Swift.print("\(filename):\(lineNr) Mesh is not created while parsing 'endfacet'")
                 return false
@@ -57,7 +58,7 @@ class STLASCIIParser {
 
         } else if line.hasPrefix("endsolid") {
             if let mesh = optionalMesh {
-                //mesh.postProcess()
+                mesh.postProcess()
             } else {
                 Swift.print("\(filename):\(lineNr) Mesh is not created while parsing 'endsolid'")
                 return false

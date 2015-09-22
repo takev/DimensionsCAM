@@ -16,7 +16,7 @@ class TetrahedronMesh {
     }
 
     func copy() -> TetrahedronMesh {
-        let tmp = TetrahedronMesh(name: name + " copy")
+        let tmp = TetrahedronMesh()
 
         for (_, tetrahedron) in tetrahedron_by_centroid {
             tmp.addTetrahedron(tetrahedron)

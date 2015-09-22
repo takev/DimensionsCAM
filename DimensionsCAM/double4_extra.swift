@@ -28,6 +28,15 @@ extension double4: Addible, Equatable {
         return self / length
     }
 
+    public var snap: double4 {
+        return double4(
+            round(self.x * 1000.0) * 0.001,
+            round(self.y * 1000.0) * 0.001,
+            round(self.z * 1000.0) * 0.001,
+            round(self.w * 1000.0) * 0.001
+        )
+    }
+
     init(_ xyz: double3, _ w: Double) {
         self.init(xyz.x, xyz.y, xyz.z, w)
     }
