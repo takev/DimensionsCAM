@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import simd
 
 class STLASCIIParser {
     var optionalMesh        : TriangleMesh? = nil
-    var normal              : double4       = double4()
-    var points              : [double4]     = []
+    var normal              : Vector3Fix10?
+    var points              : [Vector3Fix10]     = []
 
     init() {
     }
@@ -20,26 +19,34 @@ class STLASCIIParser {
     func parseLine(line: String, lineNr: Int, filename: String) -> Bool {
         if line.hasPrefix("solid") {
             optionalMesh = TriangleMesh()
-            normal = double4()
+            normal = nil
 
         } else if line.hasPrefix("facet normal") {
             let string_value = line[line.startIndex.advancedBy(13) ..< line.endIndex]
-            guard let normal = string_value.toDouble3() else {
+            guard let normal = string_value.toDoubles() else {
                 Swift.print("\(filename):\(lineNr) Cannot parse normal '\(string_value)'.");
                 return false
             }
-            self.normal = double4(normal, 0.0)
+            guard normal.count == 3 else {
+                Swift.print("\(filename):\(lineNr) Normal does not have 3 numbers '\(string_value)'.");
+                return false
+            }
+            self.normal = Vector3Fix10(normal[0], normal[1], normal[2])
 
         } else if line.hasPrefix("outer loop") {
             points = []
 
         } else if line.hasPrefix("vertex") {
             let string_value = line[line.startIndex.advancedBy(7) ..< line.endIndex]
-            guard let point = string_value.toDouble3() else {
+            guard let point = string_value.toDoubles() else {
                 Swift.print("\(filename):\(lineNr) Cannot parse vertex '\(string_value).");
                 return false
             }
-            points.append(double4(point, 1.0).snap)
+            guard point.count == 3 else {
+                Swift.print("\(filename):\(lineNr) Vertex does not have 3 numbers '\(string_value).");
+                return false
+            }
+            points.append(Vector3Fix10(point[0], point[1], point[2]))
 
         } else if line.hasPrefix("endloop") {
             if (points.count != 3) {

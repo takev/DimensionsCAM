@@ -9,7 +9,7 @@
 import Foundation
 
 class TetrahedronMesh {
-    var tetrahedron_by_centroid:    [Int64:Tetrahedron]
+    var tetrahedron_by_centroid:    [UInt64:Tetrahedron]
 
     init() {
         self.tetrahedron_by_centroid = [:]
@@ -26,7 +26,7 @@ class TetrahedronMesh {
     }
 
     func addTetrahedron(tetrahedron: Tetrahedron) {
-        tetrahedron_by_centroid[tetrahedron.gridId] = tetrahedron
+        tetrahedron_by_centroid[tetrahedron.id] = tetrahedron
     }
 
     func toTriangleMesh() -> TriangleMesh {

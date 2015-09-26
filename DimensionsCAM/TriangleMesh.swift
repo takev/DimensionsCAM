@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import simd
 
 class TriangleMesh {
-    var triangle_by_centroid:   [Int64:Triangle]
-    var triangles_by_vertex:    [Int64:Set<Triangle>]
-    var triangles_by_edge:      [Int64:Set<Triangle>]
+    var triangle_by_centroid:   [UInt64:Triangle]
+    var triangles_by_vertex:    [UInt64:Set<Triangle>]
+    var triangles_by_edge:      [UInt64:Set<Triangle>]
 
     init() {
         triangle_by_centroid = [:]
@@ -34,7 +33,7 @@ class TriangleMesh {
     }
 
     func contains(triangle: Triangle) -> Bool {
-        if let _ = triangle_by_centroid[triangle.gridId] {
+        if let _ = triangle_by_centroid[triangle.id] {
             return true
         } else {
             return false
@@ -42,36 +41,42 @@ class TriangleMesh {
     }
 
     func addTriangle(triangle: Triangle) {
-        triangle_by_centroid[triangle.gridId] = triangle
+        if triangle_by_centroid[triangle.id] != nil {
+            preconditionFailure("Triangle already exists")
+        }
+
+        // Add triangle to various tables.
+        triangle_by_centroid[triangle.id] = triangle
+
         for vertex in triangle {
-            var vertex_triangles = triangles_by_vertex.setdefault(vertex.gridId, default_value: Set<Triangle>())
+            var vertex_triangles = triangles_by_vertex.setdefault(vertex.id, default_value: Set<Triangle>())
             vertex_triangles.insert(triangle)
         }
         for edge in triangle.edges {
-            var edge_triangles = triangles_by_edge.setdefault(edge.gridId, default_value: Set<Triangle>())
+            var edge_triangles = triangles_by_edge.setdefault(edge.id, default_value: Set<Triangle>())
             edge_triangles.insert(triangle)
         }
     }
 
     func removeTriangle(triangle: Triangle) {
         for vertex in triangle {
-            if var vertex_triangles = triangles_by_vertex[vertex.gridId] {
+            if var vertex_triangles = triangles_by_vertex[vertex.id] {
                 vertex_triangles.remove(triangle)
             }
         }
         for edge in triangle.edges {
-            if var edge_triangles = triangles_by_edge[edge.gridId] {
+            if var edge_triangles = triangles_by_edge[edge.id] {
                 edge_triangles.remove(triangle)
             }
         }
-        triangle_by_centroid.removeValueForKey(triangle.centroid.gridId)
+        triangle_by_centroid.removeValueForKey(triangle.centroid.id)
     }
 
     func getNeighbours(current: Triangle) -> Set<Triangle> {
         var neighbours = Set<Triangle>()
 
         for edge in current.edges {
-            if let triangles = triangles_by_edge[edge.centroid.gridId] {
+            if let triangles = triangles_by_edge[edge.centroid.id] {
                 assert(triangles.count == 2, "Each edge should have two triangles.")
                 for neighbour in triangles {
                     if (neighbour == current) {
@@ -148,6 +153,8 @@ class TriangleMesh {
         let tetrahedron_mesh = TetrahedronMesh()
 
         for (_, triangle) in triangle_by_centroid {
+            Swift.print("Found a triangle")
+
             guard let neighbour = getConvexNeighbour(triangle) else {
                 continue
             }

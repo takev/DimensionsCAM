@@ -10,8 +10,14 @@ import Foundation
 
 func main() {
 
-    let mesh = STLLoadFile("/Users/takev/Projects/DimensionsCAM/DimensionsCAM/example_object.stl")
-    Swift.print(mesh)
+    if let mesh = STLLoadFile("/Users/takev/Projects/DimensionsCAM/DimensionsCAM/example_object.stl") {
+        let tetrahedron_mesh = mesh.toTetrahedronMesh()
+        let triangle_mesh = tetrahedron_mesh.toTriangleMesh()
+
+        Swift.print(triangle_mesh)
+        STLSaveFile(triangle_mesh, filename: "/Users/takev/Projects/DimensionsCAM/DimensionsCAM/result_object.stl")
+
+    }
 }
 
 main()

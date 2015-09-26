@@ -7,30 +7,48 @@
 //
 
 import Foundation
-import simd
 
+/// An Edge is a line segement between two vertices called A & B.
 struct Edge: CollectionType, Hashable {
     typealias Index = Int
-    typealias Element = double4
+    typealias Element = Vector3Fix10
 
-    let A:  double4
-    let B:  double4
+    let A:  Element
+    let B:  Element
 
-    var centroid:   double4 { return (A + B) / 2.0 }
+    /// The centroid of the edge.
+    var centroid:   Element { return (A + B) / 2 }
+
+    /// The number of vertices. (always 2)
     var count:      Int     { return 2 }
-    var endIndex:   Int     { return 2 }
-    var startIndex: Int     { return 0 }
-    var isEmpty:    Bool    { return false }
-    var gridId:     Int64   { return centroid.gridId }
-    var hashValue:  Int     { return gridId.hashValue }
 
-    /// The vertices must appear in counter-clockwise winding, the coordinate system is right-handed.
-    init(_ A: double4, _ B: double4) {
+    /// Beyond the last index in a list of vertices. (always 2)
+    var endIndex:   Int     { return 2 }
+
+    /// First index in a list of vertices. (always 0)
+    var startIndex: Int     { return 0 }
+
+    /// Is the list of vertices empty. (always false)
+    var isEmpty:    Bool    { return false }
+
+    /// Return a grid identifier for this object.
+    var id:         UInt64  { return centroid.id }
+
+    var hashValue:  Int     { return id.hashValue }
+
+    /// Initialize an Edge
+    /// There is no order of vertices on an edge, since an edge doesn't have an inside.
+    ///
+    /// param: A: First vertex.
+    /// param: B: Second vertex.
+    init(_ A: Element, _ B: Element) {
         self.A = A
         self.B = B
     }
 
-    subscript(index: Int) -> double4 {
+    /// Get a vertex.
+    /// param: index: integer index into the list of vertices.
+    subscript(index: Int) -> Element {
         switch index {
         case 0: return A
         case 1: return B
@@ -40,6 +58,6 @@ struct Edge: CollectionType, Hashable {
 }
 
 func ==(lhs: Edge, rhs: Edge) -> Bool {
-    return lhs.gridId == rhs.gridId
+    return lhs.id == rhs.id
 }
 

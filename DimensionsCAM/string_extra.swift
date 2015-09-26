@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import simd
 
 extension String {
 
@@ -37,7 +36,7 @@ extension String {
     }
 
     /// Take three floating point numbers as string and return a float vector.
-    func toDouble3(seperator: String=" ") -> double3? {
+    func toDoubles(seperator: String=" ") -> [Double]? {
         var values : [Double] = []
         let components = self.componentsSeparatedByString(seperator)
 
@@ -51,19 +50,7 @@ extension String {
             values.append(float_component)
         }
 
-        if values.count == 3 {
-            return double3(values[0], values[1], values[2])
-        } else {
-            return nil
-        }
+        return values
     }
 
-    /// Take three floating point numbers as string and return a fix vector.
-    /*func toFix3() -> fix3? {
-        if let value = self.toDouble3() {
-            return fix3(value)
-        } else {
-            return nil;
-        }
-    }*/
 }
