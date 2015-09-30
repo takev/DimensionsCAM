@@ -8,37 +8,48 @@
 
 import Foundation
 
-protocol Addible {
-    func +(l: Self, r: Self) -> Self
-}
-
+/// Power
 infix operator ** { associativity left precedence 155 }
+
+/// Dot product
 infix operator ∙ { associativity left precedence 150 }
+
+/// Cross product
 infix operator × { associativity left precedence 155 }
 
-func sum<C: CollectionType where C.Generator.Element: Addible>(values: C) -> C.Generator.Element {
-    var index = values.startIndex
-    var total = values[index]
-    index = index.advancedBy(1)
+/// Intersect
+infix operator ∩ { associativity left precedence 150 }
 
-    while (index != values.endIndex) {
-        total = total + values[index]
-        index = index.advancedBy(1)
-    }
-    return total
-}
+/// Union
+infix operator ∪ { associativity left precedence 140 }
 
-func -<C: CollectionType where C.Generator.Element: Equatable>(lhs: C, rhs: C) -> [C.Generator.Element] {
-    var tmp = Array<C.Generator.Element>()
+/// Hull
+infix operator ⩂ { associativity left precedence 140 }
 
-    for lhs_element in lhs {
-        var found_in_rhs = false
-        for rhs_element in rhs {
-            found_in_rhs = found_in_rhs || (lhs_element == rhs_element)
-        }
-        if !found_in_rhs {
-            tmp.append(lhs_element)
-        }
-    }
-    return tmp
-}
+/// Element of
+infix operator ∈ { associativity left precedence 132 }
+
+/// strict subset
+infix operator ⊂ { associativity left precedence 130 }
+
+/// Subset or equal
+infix operator ⊆ { associativity left precedence 130 }
+
+/// Strict superset
+infix operator ⊃ { associativity left precedence 130 }
+
+/// Superset or equal
+infix operator ⊇ { associativity left precedence 130 }
+
+/// Precedes
+infix operator ≺ { associativity left precedence 130 }
+
+/// Precedes or touches
+infix operator ≼ { associativity left precedence 130 }
+
+/// Succeeds
+infix operator ≻ { associativity left precedence 130 }
+
+/// Succeeds or touches
+infix operator ≽ { associativity left precedence 130 }
+

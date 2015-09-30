@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>DimensionsCAMTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>68CAE72B1B9E34C2001CB11F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>68EAC2C81BBB0EEA00E1D855</key>
 		<dict>
 			<key>primary</key>
 			<true/>

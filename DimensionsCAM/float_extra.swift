@@ -12,3 +12,5 @@ import Foundation
 func **(radix: Double, power: Double) -> Double {
     return pow(radix, power)
 }
+
+

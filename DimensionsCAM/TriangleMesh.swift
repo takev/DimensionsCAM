@@ -10,8 +10,8 @@ import Foundation
 
 class TriangleMesh {
     var triangle_by_centroid:   [UInt64:Triangle]
-    var triangles_by_vertex:    [UInt64:Set<Triangle>]
-    var triangles_by_edge:      [UInt64:Set<Triangle>]
+    var triangles_by_vertex:    [UInt64:CSet<Triangle>]
+    var triangles_by_edge:      [UInt64:CSet<Triangle>]
 
     init() {
         triangle_by_centroid = [:]
@@ -49,23 +49,23 @@ class TriangleMesh {
         triangle_by_centroid[triangle.id] = triangle
 
         for vertex in triangle {
-            var vertex_triangles = triangles_by_vertex.setdefault(vertex.id, default_value: Set<Triangle>())
+            let vertex_triangles = triangles_by_vertex.setdefault(vertex.id, default_value: CSet<Triangle>())
             vertex_triangles.insert(triangle)
         }
         for edge in triangle.edges {
-            var edge_triangles = triangles_by_edge.setdefault(edge.id, default_value: Set<Triangle>())
+            let edge_triangles = triangles_by_edge.setdefault(edge.id, default_value: CSet<Triangle>())
             edge_triangles.insert(triangle)
         }
     }
 
     func removeTriangle(triangle: Triangle) {
         for vertex in triangle {
-            if var vertex_triangles = triangles_by_vertex[vertex.id] {
+            if let vertex_triangles = triangles_by_vertex[vertex.id] {
                 vertex_triangles.remove(triangle)
             }
         }
         for edge in triangle.edges {
-            if var edge_triangles = triangles_by_edge[edge.id] {
+            if let edge_triangles = triangles_by_edge[edge.id] {
                 edge_triangles.remove(triangle)
             }
         }
