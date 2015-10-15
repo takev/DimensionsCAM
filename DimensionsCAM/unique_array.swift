@@ -6,8 +6,6 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
 struct unique_array<T: Hashable> {
     var items           : [T]       = []
     var index_by_item   : [T : Int] = [:]

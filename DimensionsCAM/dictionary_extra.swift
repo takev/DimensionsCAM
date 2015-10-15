@@ -6,8 +6,6 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
 extension Dictionary {
     func get(key: Key, default_value: Value) -> Value {
         if let value = self[key] {

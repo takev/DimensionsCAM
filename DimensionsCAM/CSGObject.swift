@@ -6,21 +6,27 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
+
 import simd
 
 /// A constructive solid geometry object.
 class CSGObject {
     /// The position of this object within the enclosed object.
-    let transformation: double4x4
+    let local_transformation: double4x4
+    var global_transformation: double4x4
 
     init(transformation: double4x4) {
-        self.transformation = transformation
+        local_transformation = transformation
+        global_transformation = double4x4()
+    }
+
+    func updateTransformation(parent_transformation: double4x4) {
+        global_transformation = local_transformation × parent_transformation
     }
 
     /// Check if this CSG Object is intersecting an axis-aligned bounding box.
     /// - return: INSIDE, OUTSIDE or INTERSECTING with a CSG primative.
-    func isIntersectingWith(with: AABBox) -> CSGIntersect {
+    func isIntersectingWith(with: Interval) -> CSGIntersect {
         preconditionFailure("Abstract method")
     }
 

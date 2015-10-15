@@ -6,19 +6,18 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
 import simd
 
-/// An interval.
+/// An Interval.
 /// This object is inspired a lot by: INTERVAL ARITHMETIC USING SSE-2 (BRANIMIR LAMBOV)
 ///
 /// The FPU and SSE-2 need to be configured to round to negative infinty when executing many operation.
 /// - see: Interval.setRoundMode()
 ///
-struct Interval: Equatable, Hashable, Comparable, CustomStringConvertible, IntegerLiteralConvertible, FloatLiteralConvertible, ArrayLiteralConvertible {
+struct Interval: Equatable, Hashable, Comparable, CustomStringConvertible, IntegerLiteralConvertible, FloatLiteralConvertible, ArrayLiteralConvertible, NumericOperationsType, SqrtOperationsType {
     typealias Element = Double
 
-    /// The interval is stored with the lower bound stored in the first element and
+    /// The Interval is stored with the lower bound stored in the first element and
     /// the upper bound stored in the second element as a negated number.
     let value: double2
 
@@ -55,7 +54,7 @@ struct Interval: Equatable, Hashable, Comparable, CustomStringConvertible, Integ
         case 2:
             value = double2(elements[0], -elements[1])
         default:
-            preconditionFailure("Expect 0, 1 or 2 elements in a interval literal")
+            preconditionFailure("Expect 0, 1 or 2 elements in a Interval literal")
         }
     }
 
@@ -104,10 +103,18 @@ struct Interval: Equatable, Hashable, Comparable, CustomStringConvertible, Integ
         }
     }
 
-    /// When you use interval arithmatic you should first use setRoundMode()
+    var square: Interval {
+        // In a square we can make the value positive.
+        // That means the multiplication becomes simple and only need a signchange for one of the numbers.
+        let left = abs(self).value
+        let right = double2(left.x, -left.y)
+        return Interval(raw:left * right)
+    }
+
+    /// When you use Interval arithmatic you should first use setRoundMode()
     /// to force the FPU and SSE to round to negative infinity.
     ///
-    /// Example to use at the start of a function that uses interval arithmatic:
+    /// Example to use at the start of a function that uses Interval arithmatic:
     /// ```swift
     /// let previous_round_mode = Interval.setRoundMode()
     /// defer { Interval.unsetRoundMode(previous_round_mode) }
@@ -212,14 +219,6 @@ func abs(rhs: Interval) -> Interval {
     ))
 }
 
-func square(rhs: Interval) -> Interval {
-    // In a square we can make the value positive.
-    // That means the multiplication becomes simple and only need a signchange for one of the numbers.
-    let left = abs(rhs).value
-    let right = double2(left.x, -left.y)
-    return Interval(raw:left * right)
-}
-
 /// Greatest lower bound.
 func glb(lhs: Interval, rhs: Interval) -> Interval {
     return Interval(raw:double2(
@@ -237,13 +236,13 @@ func lub(lhs: Interval, rhs: Interval) -> Interval {
 }
 
 /// Intersection.
-/// - return:An interval where both intervals intersect with each other, or a empty interval.
+/// - return:An Interval where both Intervals intersect with each other, or a empty Interval.
 func ∩(lhs: Interval, rhs: Interval) -> Interval {
     return Interval(raw: max(lhs.value, rhs.value))
 }
 
 /// Hull
-/// - return:An interval that includes both intervals completely.
+/// - return:An Interval that includes both Intervals completely.
 func ⩂(lhs: Interval, rhs: Interval) -> Interval {
     return Interval(raw:min(lhs.value, rhs.value))
 }
@@ -319,10 +318,14 @@ func sqrt(rhs: Interval) -> Interval {
     }
 }
 
+prefix func √(rhs: Interval) -> Interval {
+    return sqrt(rhs)
+}
+
 func **(lhs: Interval, rhs: Double) -> Interval {
     switch (rhs) {
     case 2.0:
-        return square(lhs)
+        return lhs.square
     default:
         preconditionFailure("Power is only implemented for 2.0")
     }
@@ -331,7 +334,7 @@ func **(lhs: Interval, rhs: Double) -> Interval {
 func **(lhs: Interval, rhs: Int) -> Interval {
     switch (rhs) {
     case 2:
-        return square(lhs)
+        return lhs.square
     default:
         preconditionFailure("Power is only implemented for 2")
     }
@@ -359,6 +362,24 @@ func >(lhs: Interval, rhs: Double) -> Bool {
 
 func >=(lhs: Interval, rhs: Double) -> Bool {
     return lhs >= Interval(rhs)
+}
+
+// MARK: Operations with Double.
+
+func *(lhs: Double, rhs: Interval) -> Interval {
+    return Interval(lhs) * rhs
+}
+
+func *(lhs: Interval, rhs: Double) -> Interval {
+    return lhs * Interval(rhs)
+}
+
+func +(lhs: Double, rhs: Interval) -> Interval {
+    return Interval(lhs) * rhs
+}
+
+func +(lhs: Interval, rhs: Double) -> Interval {
+    return lhs * Interval(rhs)
 }
 
 

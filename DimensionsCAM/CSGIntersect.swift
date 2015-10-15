@@ -6,14 +6,17 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
 enum CSGIntersect {
-    /// The AABBox is fully inside a CSG object.
+    /// The point (interval) is fully inside a CSG object.
     case INSIDE
-    /// The AABBox is fully outside a CSG object.
+
+    /// The point (interval) is fully outside a CSG object.
     case OUTSIDE
-    /// The AABBox is intersecting with the surface of the object at a CSG primative
-    /// The primative is returned to retrieve a normal at the AABBox. 
+
+    /// The point (interval) may intersect exactly one primative.
     case SURFACE(CSGPrimative)
+
+    /// The point (interval) may intersect multiple primatives.
+    case INTERSECTS
+
 }

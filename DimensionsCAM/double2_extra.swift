@@ -6,10 +6,10 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
+
 import simd
 
-extension double2 {
+extension double2: NumericOperationsType {
     var yx: double2 { return double2(y, x) }
 }
 

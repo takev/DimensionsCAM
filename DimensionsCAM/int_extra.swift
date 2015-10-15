@@ -6,9 +6,6 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
-
 func **(lhs: Int, rhs: Int) -> Int {
     switch lhs {
     case 2:

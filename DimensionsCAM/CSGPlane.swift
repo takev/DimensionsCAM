@@ -6,7 +6,7 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
+
 import simd
 
 class CSGPlane: CSGPrimative {
@@ -20,7 +20,7 @@ class CSGPlane: CSGPrimative {
         super.init(transformation: double4x4())
     }
 
-    override func normalAt(at: AABBox) -> double4 {
+    override func normalAt(at: Interval) -> double4 {
         return normal
     }
 

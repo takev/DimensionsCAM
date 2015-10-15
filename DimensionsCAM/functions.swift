@@ -6,8 +6,6 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
 @noreturn func notImplementedFailure() {
     preconditionFailure("Not implemented")
 }

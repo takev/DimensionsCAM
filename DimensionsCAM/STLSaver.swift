@@ -6,7 +6,7 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
+
 
 enum STLFileType {
     case BINARY;

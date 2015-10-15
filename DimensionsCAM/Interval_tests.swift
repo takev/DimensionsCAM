@@ -220,9 +220,9 @@ class Interval_tests: XCTestCase {
     }
 
     func testSquareOperations() {
-        XCTAssertEqual(square(Interval( 11.0,  11.0)), Interval(121.0, 121.0));
-        XCTAssertEqual(square(Interval(  0.0,   0.0)), Interval(  0.0,   0.0));
-        XCTAssertEqual(square(Interval( -9.0,  -9.0)), Interval( 81.0,  81.0));
+        XCTAssertEqual(Interval( 11.0,  11.0).square, Interval(121.0, 121.0));
+        XCTAssertEqual(Interval(  0.0,   0.0).square, Interval(  0.0,   0.0));
+        XCTAssertEqual(Interval( -9.0,  -9.0).square, Interval( 81.0,  81.0));
     }
 
     func testSqrtOperations() {

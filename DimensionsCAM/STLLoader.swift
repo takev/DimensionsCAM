@@ -6,7 +6,7 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
+
 
 func STLLoadFile(path: String) -> TriangleMesh? {
     let stl_ascii_magic_text = "solid"

@@ -6,8 +6,6 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
 /// Power
 infix operator ** { associativity left precedence 155 }
 
@@ -52,4 +50,9 @@ infix operator ≻ { associativity left precedence 130 }
 
 /// Succeeds or touches
 infix operator ≽ { associativity left precedence 130 }
+
+/// Succeeds or touches
+prefix operator √ { }
+
+
 

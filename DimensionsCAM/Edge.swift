@@ -6,7 +6,7 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
+
 
 /// An Edge is a line segement between two vertices called A & B.
 struct Edge: CollectionType, Hashable {

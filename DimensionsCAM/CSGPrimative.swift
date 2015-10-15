@@ -6,7 +6,6 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
 import simd
 
 /// A constructive solid primative.
@@ -17,7 +16,7 @@ class CSGPrimative: CSGObject {
     /// The normal at the AABBox.
     /// This function may return an estimation or average of the normal since the AABBox
     /// will intersect a surface area, instead of a single point.
-    func normalAt(at: AABBox) -> double4 {
+    func normalAt(at: Interval) -> double4 {
         preconditionFailure("Abstract method")
     }
 

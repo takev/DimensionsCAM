@@ -6,8 +6,6 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
 func sum<C: CollectionType where C.Generator.Element: Addible>(values: C) -> C.Generator.Element {
     var index = values.startIndex
     var total = values[index]

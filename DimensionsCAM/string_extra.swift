@@ -6,9 +6,16 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-import Foundation
-
 extension String {
+    init(sep:String, _ lines:String...){
+        self = ""
+        for (idx, item) in lines.enumerate() {
+            self += item
+            if idx < lines.count-1 {
+                self += sep
+            }
+        }
+    }
 
     /// Remove whitespace in front of the string.
     func lstrip() -> String {

@@ -8,9 +8,16 @@
 
 import Foundation
 
+extension Double: SqrtOperationsType, NumericOperationsType {
+    var square: Double {
+        return self * self
+    }
+}
 
 func **(radix: Double, power: Double) -> Double {
     return pow(radix, power)
 }
 
-
+prefix func √(rhs: Double) -> Double {
+    return sqrt(rhs)
+}
