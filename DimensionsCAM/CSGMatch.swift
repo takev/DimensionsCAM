@@ -6,7 +6,7 @@
 //  Copyright © 2015 VOSGAMES. All rights reserved.
 //
 
-enum CSGIntersect {
+enum CSGMatch {
     /// The point (interval) is fully inside a CSG object.
     case INSIDE
 

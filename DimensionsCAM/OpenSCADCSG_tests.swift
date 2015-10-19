@@ -205,7 +205,7 @@ class OpenSCADCSG_tests: XCTestCase {
     }
 
     func testParser() {
-        var p = OpenSCADCSGGrammar(text: test2, filename: "<test2>")
+        var p = OpenSCADCSGParser(text: test2, filename: "<test2>")
 
         Swift.print(try! p.parseProgram())
     }

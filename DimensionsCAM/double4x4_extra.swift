@@ -9,6 +9,14 @@
 import simd
 
 extension double4x4 {
+    init(translate: double4) {
+        self.init(rows:[
+            double4(1.0, 0.0, 0.0, translate.x),
+            double4(0.0, 1.0, 0.0, translate.y),
+            double4(0.0, 0.0, 1.0, translate.z),
+            double4(0.0, 0.0, 0.0, translate.w)
+        ])
+    }
 }
 
 func ×(lhs: double4x4, rhs: double4x4) -> double4x4 {

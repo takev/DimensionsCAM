@@ -10,23 +10,32 @@
 import simd
 
 /// A constructive solid geometry object.
-class CSGObject {
-    /// The position of this object within the enclosed object.
-    let local_transformation: double4x4
-    var global_transformation: double4x4
+class CSGObject: CustomStringConvertible {
+    weak var parent : CSGObject? = nil
 
-    init(transformation: double4x4) {
-        local_transformation = transformation
-        global_transformation = double4x4()
+    /// The position of this object within the enclosed object.
+    var local_transformations: [double4x4] = []
+    var global_transformation = double4x4()
+
+    init() {
+    }
+
+    var description: String {
+        let class_name = String(self.dynamicType)
+        return "<\(class_name)>"
     }
 
     func updateTransformation(parent_transformation: double4x4) {
-        global_transformation = local_transformation × parent_transformation
+        global_transformation = double4x4()
+        for local_transformation in local_transformations {
+            global_transformation = global_transformation × local_transformation
+        }
+        global_transformation = global_transformation × parent_transformation
     }
 
     /// Check if this CSG Object is intersecting an axis-aligned bounding box.
     /// - return: INSIDE, OUTSIDE or INTERSECTING with a CSG primative.
-    func isIntersectingWith(with: Interval) -> CSGIntersect {
+    func isIntersectingWith(with: Interval) -> CSGMatch {
         preconditionFailure("Abstract method")
     }
 

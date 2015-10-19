@@ -8,39 +8,6 @@
 
 import simd
 
-enum OpenSCADCSGAST: Equatable, CustomStringConvertible {
-    case LEAF_NAME(String)
-    case LEAF_NUMBER(Double)
-    case LEAF_VECTOR(double4)
-    case LEAF_MATRIX(double4x4)
-    case BRANCH(String, [OpenSCADCSGAST])
-    case NULL
-
-    var description: String {
-        switch (self) {
-        case .LEAF_NAME(let a):             return "\"\(a)\""
-        case .LEAF_NUMBER(let a):           return "\(a)"
-        case .LEAF_VECTOR(let a):           return "\(a)"
-        case .LEAF_MATRIX(let a):           return "\(a)"
-        case .NULL:                         return "NULL"
-        case .BRANCH(let name, let list):   return "\(name): \(list)"
-        }
-    }
-}
-
-func ==(a: OpenSCADCSGAST, b: OpenSCADCSGAST) -> Bool {
-    switch (a, b) {
-    case (.LEAF_NAME(let a),        .LEAF_NAME(let b))          where a == b:               return true
-    case (.LEAF_NUMBER(let a),      .LEAF_NUMBER(let b))        where a == b:               return true
-    case (.LEAF_VECTOR(let a),      .LEAF_VECTOR(let b))        where a == b:               return true
-    case (.LEAF_MATRIX(let a),      .LEAF_MATRIX(let b))        where a == b:               return true
-    case (.BRANCH(let a1, let a2),  .BRANCH(let b1, let b2))    where a1 == b1 && a2 == b2: return true
-    case (.NULL,                    .NULL):                                                 return true
-    default:                                                                                return false
-    }
-}
-
-
 struct OpenSCADCSGGrammar {
     var lexer:          OpenSCADCSGLexer
     var currentToken:   OpenSCADCSGToken = .NULL
@@ -92,25 +59,44 @@ struct OpenSCADCSGGrammar {
         }
     }
 
+    mutating func acceptBoolean() throws -> Bool {
+        switch currentToken {
+        case .BOOLEAN(let value):
+            try loadNextToken()
+            return value
+        default:
+            throw OpenSCADCSGError.UNEXPECTED_TOKEN(lexer.filename, lexer.line_nr, .BOOLEAN(false), currentToken)
+        }
+    }
+
     /// vector ::= '[' number ',' number ',' number ',' number ']'
     mutating func acceptVector() throws -> double4 {
         var values: [Double] = []
+        var first_iteration = true
 
         try acceptToken(.LEFT_BRACKET)
 
-        for _ in 0 ..< 3 {
+        while currentToken != .RIGHT_BRACKET {
+            if first_iteration {
+                first_iteration = false
+            } else {
+                try acceptToken(.COMMA)
+            }
+
             let value = try acceptNumber()
             values.append(value)
-
-            try acceptToken(.COMMA)
         }
-
-        let value = try acceptNumber()
-        values.append(value)
 
         try acceptToken(.RIGHT_BRACKET)
 
-        return double4(values)
+        switch values.count {
+        case 4:
+            return double4(values)
+        case 3:
+            return double4(values[0], values[1], values[2], 0.0)
+        default:
+            throw OpenSCADCSGError.BAD_VECTOR(lexer.filename, lexer.line_nr, values)
+        }
     }
 
 
@@ -165,15 +151,21 @@ struct OpenSCADCSGGrammar {
     ///           vector
     ///           matrix
     mutating func parseValue() throws -> OpenSCADCSGAST {
-        if currentToken == .LEFT_BRACKET {
+        switch currentToken {
+        case .LEFT_BRACKET:
             if nextToken == .LEFT_BRACKET {
                 return try parseMatrix()
             } else {
                 return try parseVector()
             }
-        } else {
+        case .NUMBER:
             let number = try acceptNumber()
             return .LEAF_NUMBER(number)
+        case .BOOLEAN:
+            let value = try acceptBoolean()
+            return .LEAF_BOOLEAN(value)
+        default:
+            throw OpenSCADCSGError.UNEXPECTED_TOKEN(lexer.filename, lexer.line_nr, .NUMBER(0.0), currentToken)
         }
     }
 

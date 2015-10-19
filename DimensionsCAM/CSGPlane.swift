@@ -13,11 +13,11 @@ class CSGPlane: CSGPrimative {
     let normal: double4
     let position: double4
 
-    init() {
+    override init() {
         normal = double4(1.0, 0.0, 0.0, 0.0)
         position = double4(0.0, 0.0, 0.0, 1.0)
 
-        super.init(transformation: double4x4())
+        super.init()
     }
 
     override func normalAt(at: Interval) -> double4 {
