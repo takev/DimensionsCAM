@@ -40,9 +40,10 @@
 		683E9E081BDB0AF80054E87D /* OpenSCADCSGLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AB021BC07A6E00E6D80F /* OpenSCADCSGLexer.swift */; };
 		683E9E091BDB0AF80054E87D /* OpenSCADCSGGrammar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE79261BC716BA00DEFE81 /* OpenSCADCSGGrammar.swift */; };
 		683E9E0A1BDB0AF80054E87D /* OpenSCADCSGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AB0D1BC1332500E6D80F /* OpenSCADCSGParser.swift */; };
-		683E9E0E1BDD0CBB0054E87D /* gpl-3.0-boilerplate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 683E9E0D1BDD0CBB0054E87D /* gpl-3.0-boilerplate.txt */; };
-		683E9E101BDD0F9A0054E87D /* To do.md in Sources */ = {isa = PBXBuildFile; fileRef = 683E9E0F1BDD0F9A0054E87D /* To do.md */; };
-		683E9E111BDD0F9A0054E87D /* To do.md in Sources */ = {isa = PBXBuildFile; fileRef = 683E9E0F1BDD0F9A0054E87D /* To do.md */; };
+		683E9E0E1BDD0CBB0054E87D /* BOILERPLATE in Resources */ = {isa = PBXBuildFile; fileRef = 683E9E0D1BDD0CBB0054E87D /* BOILERPLATE */; };
+		683E9E101BDD0F9A0054E87D /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 683E9E0F1BDD0F9A0054E87D /* TODO.md */; };
+		683E9E111BDD0F9A0054E87D /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 683E9E0F1BDD0F9A0054E87D /* TODO.md */; };
+		683E9E131BDD17DE0054E87D /* AUTHORS in Resources */ = {isa = PBXBuildFile; fileRef = 683E9E121BDD17DE0054E87D /* AUTHORS */; };
 		6866C3EE1BA86E7C0080F56A /* operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6866C3ED1BA86E7C0080F56A /* operators.swift */; };
 		6877AAFD1BC02CEF00E6D80F /* interval4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AAFC1BC02CEF00E6D80F /* interval4.swift */; };
 		6877AAFF1BC0386500E6D80F /* double4_extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AAFE1BC0386500E6D80F /* double4_extra.swift */; };
@@ -94,9 +95,10 @@
 
 /* Begin PBXFileReference section */
 		683E9DE41BDAEC9E0054E87D /* CSG_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSG_tests.swift; sourceTree = "<group>"; };
-		683E9E0B1BDD0C720054E87D /* gpl-3.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "gpl-3.0.txt"; sourceTree = SOURCE_ROOT; };
-		683E9E0D1BDD0CBB0054E87D /* gpl-3.0-boilerplate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "gpl-3.0-boilerplate.txt"; sourceTree = SOURCE_ROOT; };
-		683E9E0F1BDD0F9A0054E87D /* To do.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "To do.md"; sourceTree = SOURCE_ROOT; };
+		683E9E0B1BDD0C720054E87D /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = SOURCE_ROOT; };
+		683E9E0D1BDD0CBB0054E87D /* BOILERPLATE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BOILERPLATE; sourceTree = SOURCE_ROOT; };
+		683E9E0F1BDD0F9A0054E87D /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = SOURCE_ROOT; };
+		683E9E121BDD17DE0054E87D /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = SOURCE_ROOT; };
 		6866C3ED1BA86E7C0080F56A /* operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = operators.swift; sourceTree = "<group>"; };
 		6877AAFC1BC02CEF00E6D80F /* interval4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = interval4.swift; sourceTree = "<group>"; };
 		6877AAFE1BC0386500E6D80F /* double4_extra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = double4_extra.swift; sourceTree = "<group>"; };
@@ -115,7 +117,6 @@
 		68824B661BD521F6005E1FCD /* CSGCube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGCube.swift; sourceTree = "<group>"; };
 		68824B691BD529EB005E1FCD /* CSGSphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGSphere.swift; sourceTree = "<group>"; };
 		68824B6E1BD52B99005E1FCD /* CSGCylinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGCylinder.swift; sourceTree = "<group>"; };
-		68824B761BD53EFC005E1FCD /* Voxel Space.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Voxel Space.md"; sourceTree = SOURCE_ROOT; };
 		68824B771BD53FA0005E1FCD /* Voxel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Voxel.swift; sourceTree = "<group>"; };
 		68BB68AD1BD135E40059E84F /* OpenSCADCSGError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSCADCSGError.swift; sourceTree = "<group>"; };
 		68BB68B01BD1360E0059E84F /* OpenSCADCSGToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSCADCSGToken.swift; sourceTree = "<group>"; };
@@ -130,7 +131,7 @@
 		68C207641BA09B000007937D /* string_extra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = string_extra.swift; sourceTree = "<group>"; };
 		68CAE72C1B9E34C2001CB11F /* DimensionsCAM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DimensionsCAM; sourceTree = BUILT_PRODUCTS_DIR; };
 		68CAE72F1B9E34C2001CB11F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		68D879471BB2FBD0006E5636 /* Coordinate System.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Coordinate System.md"; sourceTree = SOURCE_ROOT; };
+		68D879471BB2FBD0006E5636 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		68D879491BB47B41006E5636 /* FixedPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedPoint.swift; sourceTree = "<group>"; };
 		68D8794F1BB5CC2D006E5636 /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
 		68E39D5D1B9E36ED00FD2C55 /* STLLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STLLoader.swift; sourceTree = "<group>"; };
@@ -248,11 +249,11 @@
 		68D879451BB2FB08006E5636 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				683E9E0B1BDD0C720054E87D /* gpl-3.0.txt */,
-				683E9E0D1BDD0CBB0054E87D /* gpl-3.0-boilerplate.txt */,
-				68D879471BB2FBD0006E5636 /* Coordinate System.md */,
-				68824B761BD53EFC005E1FCD /* Voxel Space.md */,
-				683E9E0F1BDD0F9A0054E87D /* To do.md */,
+				683E9E121BDD17DE0054E87D /* AUTHORS */,
+				683E9E0B1BDD0C720054E87D /* COPYING */,
+				683E9E0D1BDD0CBB0054E87D /* BOILERPLATE */,
+				68D879471BB2FBD0006E5636 /* README.md */,
+				683E9E0F1BDD0F9A0054E87D /* TODO.md */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
@@ -411,7 +412,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				683E9E0E1BDD0CBB0054E87D /* gpl-3.0-boilerplate.txt in Resources */,
+				683E9E0E1BDD0CBB0054E87D /* BOILERPLATE in Resources */,
+				683E9E131BDD17DE0054E87D /* AUTHORS in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68824B641BD43EE9005E1FCD /* CSGDifference.swift in Sources */,
-				683E9E101BDD0F9A0054E87D /* To do.md in Sources */,
+				683E9E101BDD0F9A0054E87D /* TODO.md in Sources */,
 				6877AB031BC07A6E00E6D80F /* OpenSCADCSGLexer.swift in Sources */,
 				6877AB0E1BC1332500E6D80F /* OpenSCADCSGParser.swift in Sources */,
 				68C207631BA074440007937D /* unique_array.swift in Sources */,
@@ -488,7 +490,7 @@
 				683E9DF01BDB0AE10054E87D /* string_extra.swift in Sources */,
 				683E9DF11BDB0AE10054E87D /* CollectionType_extra.swift in Sources */,
 				683E9DF21BDB0AE10054E87D /* functions.swift in Sources */,
-				683E9E111BDD0F9A0054E87D /* To do.md in Sources */,
+				683E9E111BDD0F9A0054E87D /* TODO.md in Sources */,
 				683E9DF31BDB0AE10054E87D /* dictionary_extra.swift in Sources */,
 				683E9DF41BDB0AE10054E87D /* unique_array.swift in Sources */,
 				683E9DF51BDB0AE10054E87D /* CSet.swift in Sources */,
