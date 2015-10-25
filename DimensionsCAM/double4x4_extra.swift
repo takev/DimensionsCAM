@@ -1,14 +1,31 @@
+// DimensionsCAM - A multi-axis tool path generator for a milling machine
+// Copyright (C) 2015  Take Vos
 //
-//  double4x4_extra.swift
-//  DimensionsCAM
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-//  Created by Take Vos on 2015-10-03.
-//  Copyright © 2015 VOSGAMES. All rights reserved.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import simd
 
 extension double4x4 {
+    static var identity: double4x4 {
+        return double4x4(rows:[
+            double4(1.0, 0.0, 0.0, 0.0),
+            double4(0.0, 1.0, 0.0, 0.0),
+            double4(0.0, 0.0, 1.0, 0.0),
+            double4(0.0, 0.0, 0.0, 1.0)
+        ])
+    }
+
     init(translate: double4) {
         self.init(rows:[
             double4(1.0, 0.0, 0.0, translate.x),
@@ -16,6 +33,15 @@ extension double4x4 {
             double4(0.0, 0.0, 1.0, translate.z),
             double4(0.0, 0.0, 0.0, translate.w)
         ])
+    }
+
+    public var description: String {
+        return String(sep:"",
+            "((\(self[0][0]), \(self[1][0]), \(self[2][0]), \(self[3][0])),",
+            " (\(self[0][1]), \(self[1][1]), \(self[2][1]), \(self[3][1])),",
+            " (\(self[0][2]), \(self[1][2]), \(self[2][2]), \(self[3][2])),",
+            " (\(self[0][3]), \(self[1][3]), \(self[2][3]), \(self[3][3])))"
+        )
     }
 }
 
@@ -28,6 +54,8 @@ func ×(lhs: double4x4, rhs: double4) -> double4 {
 }
 
 func ×(lhs: double4x4, rhs: interval4) -> interval4 {
+    // double4x4 is in column-major order. So the first index selects which column, second index selects row.
+
     let x0 = lhs[0][0] * rhs.x
     let x1 = lhs[1][0] * rhs.y
     let x2 = lhs[2][0] * rhs.z

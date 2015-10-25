@@ -1,18 +1,31 @@
+// DimensionsCAM - A multi-axis tool path generator for a milling machine
+// Copyright (C) 2015  Take Vos
 //
-//  interval4.swift
-//  DimensionsCAM
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-//  Created by Take Vos on 2015-10-03.
-//  Copyright © 2015 VOSGAMES. All rights reserved.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
-struct interval4 {
+struct interval4: CustomStringConvertible {
     let x: Interval
     let y: Interval
     let z: Interval
     let w: Interval
+
+    init() {
+        x = Interval()
+        y = Interval()
+        z = Interval()
+        w = Interval()
+    }
 
     init(_ a: [Double]) {
         x = Interval(a[0])
@@ -35,7 +48,9 @@ struct interval4 {
         self.w = w
     }
 
-
+    var description: String {
+        return "(\(x), \(y), \(z), \(w))"
+    }
 }
 
 func dot(lhs: interval4, _ rhs: interval4) -> Interval {
@@ -70,4 +85,14 @@ func ∙(lhs: interval4, rhs: interval4) -> Interval {
 
 func ×(lhs: interval4, rhs: interval4) -> interval4 {
     return cross(lhs, rhs)
+}
+
+/// A hull over two axis aligned bounding box.
+func ⩂(lhs: interval4, rhs: interval4) -> interval4 {
+    return interval4(
+        lhs.x ⩂ rhs.x,
+        lhs.y ⩂ rhs.y,
+        lhs.z ⩂ rhs.z,
+        lhs.w ⩂ rhs.w
+    )
 }

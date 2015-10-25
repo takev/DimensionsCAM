@@ -1,10 +1,18 @@
+// DimensionsCAM - A multi-axis tool path generator for a milling machine
+// Copyright (C) 2015  Take Vos
 //
-//  CSGCylinder.swift
-//  DimensionsCAM
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-//  Created by Take Vos on 2015-10-19.
-//  Copyright © 2015 VOSGAMES. All rights reserved.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import simd
 
@@ -20,6 +28,19 @@ class CSGCylinder: CSGPrimative {
     }
 
     override var description: String {
-        return "<CSGSphere height=\(height), diameter_bottom=\(diameter_bottom), diameter_top=\(diameter_top)>"
+        let class_name = String(self.dynamicType)
+        return "<\(class_name) height=\(height), diameter_bottom=\(diameter_bottom), diameter_top=\(diameter_top)>"
+    }
+
+    override func updateBoundingBox() {
+        let size = max(diameter_top, diameter_bottom)
+        let tmp = interval4(
+            Interval(-0.5 * size, 0.5 * size),
+            Interval(-0.5 * size, 0.5 * size),
+            Interval(-0.5 * height, 0.5 * height),
+            Interval(0.0)
+        )
+
+        boundingBox = globalTransformation × tmp
     }
 }

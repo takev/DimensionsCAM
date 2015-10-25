@@ -14,18 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import Foundation
+import XCTest
+import simd
 
-extension Double: SqrtOperationsType, NumericOperationsType {
-    var square: Double {
-        return self * self
+class CSG_tests: XCTestCase {
+    var previous_round_mode: Int32 = -1
+
+    var cube: CSGObject? = nil
+    
+    override func setUp() {
+        super.setUp()
+
+        previous_round_mode = Interval.setRoundMode()
+
+        cube = CSGCube(size: double3(2.0, 3.0, 4.0))
     }
-}
+    
+    override func tearDown() {
+        Interval.unsetRoundMode(previous_round_mode)
 
-func **(radix: Double, power: Double) -> Double {
-    return pow(radix, power)
-}
-
-prefix func √(rhs: Double) -> Double {
-    return sqrt(rhs)
+        super.tearDown()
+    }
+    
+    func testBoundingBox() {
+        cube!.update(double4x4.identity)
+        Swift.print(cube!.boundingBox)
+    }
 }

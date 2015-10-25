@@ -13,19 +13,3 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import Foundation
-
-extension Double: SqrtOperationsType, NumericOperationsType {
-    var square: Double {
-        return self * self
-    }
-}
-
-func **(radix: Double, power: Double) -> Double {
-    return pow(radix, power)
-}
-
-prefix func √(rhs: Double) -> Double {
-    return sqrt(rhs)
-}
