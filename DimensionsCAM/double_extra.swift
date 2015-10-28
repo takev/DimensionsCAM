@@ -26,6 +26,13 @@ func **(radix: Double, power: Double) -> Double {
     return pow(radix, power)
 }
 
+func **(radix: Double, power: Int) -> Double {
+    switch power {
+    case 2: return radix * radix
+    default: return radix * Double(power)
+    }
+}
+
 prefix func √(rhs: Double) -> Double {
     return sqrt(rhs)
 }

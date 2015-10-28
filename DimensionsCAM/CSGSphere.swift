@@ -17,6 +17,7 @@
 import simd
 
 class CSGSphere: CSGPrimative {
+    /// 3D diameter of the Elipsoid.
     var size: double3
 
     init(size: double3) {
@@ -33,10 +34,18 @@ class CSGSphere: CSGPrimative {
             Interval(-0.5 * size.x, 0.5 * size.x),
             Interval(-0.5 * size.y, 0.5 * size.y),
             Interval(-0.5 * size.z, 0.5 * size.z),
-            Interval(0.0)
+            Interval(1.0)
         )
 
         boundingBox = globalTransformation × tmp
     }
+
+    override func characteristic(with: interval4) -> Interval {
+        let x = (with.x ** 2) / (size.x ** 2)
+        let y = (with.y ** 2) / (size.y ** 2)
+        let z = (with.z ** 2) / (size.z ** 2)
+        return x + y + z
+    }
+
 
 }

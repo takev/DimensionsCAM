@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import simd
+
 struct interval4: CustomStringConvertible {
     let x: Interval
     let y: Interval
@@ -41,6 +43,13 @@ struct interval4: CustomStringConvertible {
         w = a[3]
     }
 
+    init(_ a: double4) {
+        x = Interval(a.x)
+        y = Interval(a.y)
+        z = Interval(a.z)
+        w = Interval(a.w)
+    }
+
     init(_ x: Interval, _ y: Interval, _ z: Interval, _ w: Interval) {
         self.x = x
         self.y = y
@@ -48,8 +57,24 @@ struct interval4: CustomStringConvertible {
         self.w = w
     }
 
+    init(_ x: Double, _ y: Double, _ z: Double, _ w: Double) {
+        self.x = Interval(x)
+        self.y = Interval(y)
+        self.z = Interval(z)
+        self.w = Interval(w)
+    }
+
     var description: String {
         return "(\(x), \(y), \(z), \(w))"
+    }
+
+    var size: double4 {
+        return double4(
+            x.size,
+            y.size,
+            z.size,
+            w.size
+        )
     }
 }
 
@@ -95,4 +120,25 @@ func ⩂(lhs: interval4, rhs: interval4) -> interval4 {
         lhs.z ⩂ rhs.z,
         lhs.w ⩂ rhs.w
     )
+}
+
+func *(lhs: interval4, rhs: interval4) -> interval4 {
+    return interval4(
+        lhs.x * rhs.x,
+        lhs.y * rhs.y,
+        lhs.z * rhs.z,
+        lhs.w * rhs.w
+    )
+}
+
+func *(lhs: interval4, rhs: double4) -> interval4 {
+    return lhs * interval4(rhs)
+}
+
+func *(lhs: interval4, rhs: Double) -> interval4 {
+    return lhs * interval4(rhs, rhs, rhs, rhs)
+}
+
+func /(lhs: interval4, rhs: Double) -> interval4 {
+    return lhs * (1.0 / rhs)
 }

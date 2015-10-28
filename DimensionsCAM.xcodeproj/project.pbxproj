@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6828EF3C1BE10FCC000C1B2E /* int4_extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828EF3B1BE10FCC000C1B2E /* int4_extra.swift */; };
+		6828EF3D1BE10FCC000C1B2E /* int4_extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6828EF3B1BE10FCC000C1B2E /* int4_extra.swift */; };
 		683E9DE71BDB05450054E87D /* CSG_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E9DE41BDAEC9E0054E87D /* CSG_tests.swift */; };
 		683E9DEB1BDB0AE10054E87D /* operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6866C3ED1BA86E7C0080F56A /* operators.swift */; };
 		683E9DEC1BDB0AE10054E87D /* protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EAC2D71BBB139D00E1D855 /* protocols.swift */; };
@@ -94,6 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6828EF3B1BE10FCC000C1B2E /* int4_extra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = int4_extra.swift; sourceTree = "<group>"; };
 		683E9DE41BDAEC9E0054E87D /* CSG_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSG_tests.swift; sourceTree = "<group>"; };
 		683E9E0B1BDD0C720054E87D /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = SOURCE_ROOT; };
 		683E9E0D1BDD0CBB0054E87D /* BOILERPLATE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BOILERPLATE; sourceTree = SOURCE_ROOT; };
@@ -277,6 +280,7 @@
 				6877AAFC1BC02CEF00E6D80F /* interval4.swift */,
 				6877AAFE1BC0386500E6D80F /* double4_extra.swift */,
 				6877AB001BC03E4600E6D80F /* double4x4_extra.swift */,
+				6828EF3B1BE10FCC000C1B2E /* int4_extra.swift */,
 			);
 			name = SimpleTypes;
 			sourceTree = "<group>";
@@ -443,6 +447,7 @@
 				68824B6A1BD529EB005E1FCD /* CSGSphere.swift in Sources */,
 				6877AAFD1BC02CEF00E6D80F /* interval4.swift in Sources */,
 				6877AB011BC03E4600E6D80F /* double4x4_extra.swift in Sources */,
+				6828EF3C1BE10FCC000C1B2E /* int4_extra.swift in Sources */,
 				68CAE7301B9E34C2001CB11F /* main.swift in Sources */,
 				68EAC2BA1BB8911800E1D855 /* CSGMatch.swift in Sources */,
 				68BB68AE1BD135E40059E84F /* OpenSCADCSGError.swift in Sources */,
@@ -476,6 +481,7 @@
 				683E9E021BDB0AF80054E87D /* CSGIntersection.swift in Sources */,
 				683E9E031BDB0AF80054E87D /* CSGDifference.swift in Sources */,
 				683E9E041BDB0AF80054E87D /* Voxel.swift in Sources */,
+				6828EF3D1BE10FCC000C1B2E /* int4_extra.swift in Sources */,
 				683E9E051BDB0AF80054E87D /* OpenSCADCSGError.swift in Sources */,
 				683E9E061BDB0AF80054E87D /* OpenSCADCSGToken.swift in Sources */,
 				683E9E071BDB0AF80054E87D /* OpenSCADCSGAST.swift in Sources */,

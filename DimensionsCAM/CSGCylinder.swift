@@ -38,7 +38,7 @@ class CSGCylinder: CSGPrimative {
             Interval(-0.5 * size, 0.5 * size),
             Interval(-0.5 * size, 0.5 * size),
             Interval(-0.5 * height, 0.5 * height),
-            Interval(0.0)
+            Interval(1.0)
         )
 
         boundingBox = globalTransformation × tmp

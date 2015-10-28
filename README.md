@@ -27,3 +27,51 @@ A multi-axis tool path generator for a milling machine
 - Convert to voxel space -> Height Field -> Mill volume -> G-code
 - Repeat until all lumbs are gone or visited.
 
+## Coordinate system
+The coordinate system is based on the coordinate system of G-code for CNC machines, which has the Z-axis going upward from
+the part being machined.
+
+```
+ Z
+
+ ^       Y
+ |      /
+ |     /
+ |    /
+ |   /
+ |  /
+ | /
+ |/
+ +----------> X
+
+```
+
+### Oct tree
+The coordinate system as described above is the same in the Oct Tree of the voxels.
+Each node Oct Tree is split into 8 sub-nodes, each subnode is described by a letter.
+
+```
+Bottom Level z = -
+ Y
+ ^
+ |
+ +---+---+
+ | C | D |
+ +---+---+
+ | A | B |
+ +---+---+---> X
+ 
+Top level Z = +
+
+ Y
+ ^
+ |
+ +---+---+
+ | G | H |
+ +---+---+
+ | E | F |
+ +---+---+---> X
+```
+
+
+

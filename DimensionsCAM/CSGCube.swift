@@ -18,10 +18,13 @@
 import simd
 
 class CSGCube: CSGPrimative {
+    /// 3D edge lengths.
     var size: double3
+    var half_size: double3
 
     init(size: double3) {
         self.size = size
+        self.half_size = self.size * 0.5
     }
 
     override var description: String {
@@ -34,9 +37,17 @@ class CSGCube: CSGPrimative {
             Interval(-0.5 * size.x, 0.5 * size.x),
             Interval(-0.5 * size.y, 0.5 * size.y),
             Interval(-0.5 * size.z, 0.5 * size.z),
-            Interval(0.0)
+            Interval(1.0)
         )
 
         boundingBox = globalTransformation × tmp
     }
+
+    override func characteristic(with: interval4) -> Interval {
+        let x = abs(with.x) / half_size.x
+        let y = abs(with.y) / half_size.y
+        let z = abs(with.z) / half_size.z
+        return max(x, y, z)
+    }
+
 }

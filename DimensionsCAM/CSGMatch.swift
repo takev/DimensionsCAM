@@ -21,10 +21,6 @@ enum CSGMatch {
     /// The point (interval) is fully outside a CSG object.
     case OUTSIDE
 
-    /// The point (interval) may intersect exactly one primative.
-    case SURFACE(CSGPrimative)
-
-    /// The point (interval) may intersect multiple primatives.
-    case INTERSECTS
-
+    /// The point (interval) may intersect with one primative, or if multiple primatives nil is passed.
+    case SURFACE(Int?)
 }

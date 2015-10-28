@@ -46,6 +46,11 @@ class CSGObject: CustomStringConvertible {
         globalTransformation = globalTransformation × parent_transformation
     }
 
+    /// Recurse through the model and enumerate primatives.
+    func enumeratePrimatives(_: Int = 0) -> Int {
+        preconditionFailure("Abstract method")
+    }
+
     /// Update bounding box on this CSG (sub)tree.
     /// requirement: updateTransformation() must be called first.
     func updateBoundingBox() {
@@ -60,7 +65,7 @@ class CSGObject: CustomStringConvertible {
 
     /// Check if this CSG Object is intersecting an axis-aligned bounding box.
     /// - return: INSIDE, OUTSIDE or INTERSECTING with a CSG primative.
-    func isIntersectingWith(with: Interval) -> CSGMatch {
+    func isIntersectingWith(with: interval4) -> CSGMatch {
         preconditionFailure("Abstract method")
     }
 

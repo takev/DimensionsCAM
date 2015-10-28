@@ -26,4 +26,32 @@ class CSGIntersection : CSGOperation {
             boundingBox = boundingBox ⩂ children[i].boundingBox
         }
     }
+
+    override func isIntersectingWith(with: interval4) -> CSGMatch {
+        var r = CSGMatch.INSIDE
+
+        for child in children {
+            switch child.isIntersectingWith(with) {
+            case .INSIDE:
+                // We don't know anything, all children must be INSIDE to know.
+                break
+
+            case .OUTSIDE:
+                // When one child is outside, then the intersection of all childs is outside.
+                return .OUTSIDE
+
+            case .SURFACE(let primative_index):
+                // When a child's surface is intersecting the voxel it may still be inside
+                // another child, or it may also intersect the surface of another child.
+                // When two childs intersect we should return nil.
+                if case .INSIDE = r {
+                    r = .SURFACE(primative_index)
+                } else {
+                    r = .SURFACE(nil)
+                }
+            }
+        }
+
+        return r
+    }
 }

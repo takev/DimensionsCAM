@@ -29,6 +29,21 @@ struct Interval: Equatable, Hashable, Comparable, CustomStringConvertible, Integ
     /// the upper bound stored in the second element as a negated number.
     let value: double2
 
+    var low: Double {
+        return value.x
+    }
+
+    var high: Double {
+        return -value.y
+    }
+
+    var size: Double {
+        let previous_rounding_mode = Interval.setRoundMode(FE_UPWARD)
+        defer { Interval.setRoundMode(previous_rounding_mode) }
+        
+        return -value.y - value.x
+    }
+
     init(_ low: Double, _ high: Double) {
         value = double2(low, -high)
     }
@@ -388,6 +403,10 @@ func +(lhs: Double, rhs: Interval) -> Interval {
 
 func +(lhs: Interval, rhs: Double) -> Interval {
     return lhs * Interval(rhs)
+}
+
+func /(lhs: Interval, rhs: Double) -> Interval {
+    return lhs / Interval(rhs)
 }
 
 

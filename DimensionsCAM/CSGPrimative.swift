@@ -20,6 +20,7 @@ import simd
 /// A primative is a CGS object that has a surface and is not a combination
 /// of other CSG objects.
 class CSGPrimative: CSGObject {
+    var index: Int? = nil
 
     /// The normal at the AABBox.
     /// This function may return an estimation or average of the normal since the AABBox
@@ -28,5 +29,29 @@ class CSGPrimative: CSGObject {
         preconditionFailure("Abstract method")
     }
 
+    override func enumeratePrimatives(index: Int = 0) -> Int {
+        self.index = index
+        return index + 1
+    }
+
+    /// The characteristic of a function.
+    /// - returns: < 1.0 inside, > 1.0 outisde, otherwise intersecting.
+    func characteristic(with: interval4) -> Interval {
+        preconditionFailure("Abstract method")
+    }
+
+    override func isIntersectingWith(with: interval4) -> CSGMatch {
+        let box = globalTransformation × with
+
+        let value = characteristic(box)
+
+        if value < 1.0 {
+            return .INSIDE
+        } else if value > 1.0 {
+            return .OUTSIDE
+        } else {
+            return .SURFACE(index)
+        }
+    }
 
 }

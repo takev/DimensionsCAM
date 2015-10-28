@@ -23,4 +23,36 @@ class CSGDifference : CSGOperation {
         // The other childs could be subtracted if it overlaps on two axis, we don't care right now.
         boundingBox = children[0].boundingBox
     }
+
+    override func isIntersectingWith(with: interval4) -> CSGMatch {
+        var r = children[0].isIntersectingWith(with)
+
+        for i in 0 ..< children.count {
+            let child = children[i]
+
+            switch child.isIntersectingWith(with) {
+            case .INSIDE:
+                // When a voxel is fully inside one of the children it means it is subtracted
+                // from any other, so it is outside the model.
+                return .OUTSIDE
+
+            case .OUTSIDE:
+                // When a child is outside nothing changes.
+                break
+
+            case .SURFACE(let primative_index):
+                // When a child's surface is intersecting the voxel it may still be inside
+                // another child, or it may also intersect the surface of another child.
+                // When two childs intersect we should return nil.
+                if case .OUTSIDE = r {
+                    r = .SURFACE(primative_index)
+                } else {
+                    r = .SURFACE(nil)
+                }
+            }
+        }
+
+        return r
+    }
+
 }

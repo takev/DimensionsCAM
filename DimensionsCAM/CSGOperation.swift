@@ -24,6 +24,19 @@ class CSGOperation : CSGObject {
         children.append(child)
     }
 
+    func addChildren(children: [CSGObject]) {
+        for child in children {
+            addChild(child)
+        }
+    }
+
+    override func enumeratePrimatives(var index: Int = 0) -> Int {
+        for child in children {
+            index = child.enumeratePrimatives(index)
+        }
+        return index
+    }
+
     override func updateTransformation(parent_transformation: double4x4) {
         super.updateTransformation(parent_transformation)
         for child in children {
