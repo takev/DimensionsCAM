@@ -17,7 +17,7 @@
 
 import simd
 
-class CSGCube: CSGPrimative {
+class CSGBox: CSGPrimative {
     /// 3D edge lengths.
     var size: double3
     var half_size: double3

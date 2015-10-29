@@ -16,31 +16,38 @@
 
 import simd
 
-class CSGCylinder: CSGPrimative {
-    var height: Double
-    var diameter_bottom: Double
-    var diameter_top: Double
+class CSGElipsoid: CSGPrimative {
+    /// 3D diameter of the Elipsoid.
+    var size: double3
+    var half_size: double3
 
-    init(height: Double, diameter_bottom: Double, diameter_top: Double) {
-        self.height = height
-        self.diameter_bottom = diameter_bottom
-        self.diameter_top = diameter_top
+    init(size: double3) {
+        self.size = size
+        self.half_size = size * 0.5
     }
 
     override var description: String {
         let class_name = String(self.dynamicType)
-        return "<\(class_name) height=\(height), diameter_bottom=\(diameter_bottom), diameter_top=\(diameter_top)>"
+        return "<\(class_name) size=\(size)>"
     }
-
+    
     override func updateBoundingBox() {
-        let size = max(diameter_top, diameter_bottom)
         let tmp = interval4(
-            Interval(-0.5 * size, 0.5 * size),
-            Interval(-0.5 * size, 0.5 * size),
-            Interval(-0.5 * height, 0.5 * height),
+            Interval(-0.5 * half_size.x, 0.5 * half_size.x),
+            Interval(-0.5 * half_size.y, 0.5 * half_size.y),
+            Interval(-0.5 * half_size.z, 0.5 * half_size.z),
             Interval(1.0)
         )
 
         boundingBox = globalTransformation × tmp
     }
+
+    override func characteristic(with: interval4) -> Interval {
+        let x = (with.x ** 2) / (size.x ** 2)
+        let y = (with.y ** 2) / (size.y ** 2)
+        let z = (with.z ** 2) / (size.z ** 2)
+        return x + y + z
+    }
+
+
 }

@@ -135,7 +135,7 @@ struct OpenSCADCSGParser {
     func parseCubeFunction(ast: OpenSCADCSGAST, arguments_node: OpenSCADCSGAST) throws -> CSGObject {
         let size = try getVectorArgument(arguments_node, name:"size")
         let center = try getBooleanArgument(arguments_node, name:"center")
-        let object = CSGCube(size:size.xyz)
+        let object = CSGBox(size:size.xyz)
 
         if !center {
             // Move the cube which is normally has its center on the origin to having its corner on the origin.
@@ -165,7 +165,7 @@ struct OpenSCADCSGParser {
         let h = try getNumberArgument(arguments_node, name:"h")
         let center = try getBooleanArgument(arguments_node, name:"center")
 
-        let object = CSGCylinder(height: h, diameter_bottom: d1, diameter_top: d2)
+        let object = CSGCappedCone(height: h, diameter_bottom: d1, diameter_top: d2)
 
         if !center {
             // Move the cylinder which is normally has its center on the origin to having its bottom cap's center on the origin.
@@ -185,7 +185,7 @@ struct OpenSCADCSGParser {
         }
 
         let size = double3(d, d, d)
-        return CSGSphere(size:size)
+        return CSGElipsoid(size:size)
     }
 
     /// A multmatrix modifies its single child node.

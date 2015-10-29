@@ -16,36 +16,31 @@
 
 import simd
 
-class CSGSphere: CSGPrimative {
-    /// 3D diameter of the Elipsoid.
-    var size: double3
+class CSGCappedCone: CSGPrimative {
+    var height: Double
+    var diameter_bottom: Double
+    var diameter_top: Double
 
-    init(size: double3) {
-        self.size = size
+    init(height: Double, diameter_bottom: Double, diameter_top: Double) {
+        self.height = height
+        self.diameter_bottom = diameter_bottom
+        self.diameter_top = diameter_top
     }
 
     override var description: String {
         let class_name = String(self.dynamicType)
-        return "<\(class_name) size=\(size)>"
+        return "<\(class_name) height=\(height), diameter_bottom=\(diameter_bottom), diameter_top=\(diameter_top)>"
     }
-    
+
     override func updateBoundingBox() {
+        let size = max(diameter_top, diameter_bottom)
         let tmp = interval4(
-            Interval(-0.5 * size.x, 0.5 * size.x),
-            Interval(-0.5 * size.y, 0.5 * size.y),
-            Interval(-0.5 * size.z, 0.5 * size.z),
+            Interval(-0.5 * size, 0.5 * size),
+            Interval(-0.5 * size, 0.5 * size),
+            Interval(-0.5 * height, 0.5 * height),
             Interval(1.0)
         )
 
         boundingBox = globalTransformation × tmp
     }
-
-    override func characteristic(with: interval4) -> Interval {
-        let x = (with.x ** 2) / (size.x ** 2)
-        let y = (with.y ** 2) / (size.y ** 2)
-        let z = (with.z ** 2) / (size.z ** 2)
-        return x + y + z
-    }
-
-
 }

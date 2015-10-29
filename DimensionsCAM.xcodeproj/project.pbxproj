@@ -28,9 +28,9 @@
 		683E9DFA1BDB0AF80054E87D /* CSGMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EAC2B91BB8911800E1D855 /* CSGMatch.swift */; };
 		683E9DFB1BDB0AF80054E87D /* CSGObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EAC2B71BB8909200E1D855 /* CSGObject.swift */; };
 		683E9DFC1BDB0AF80054E87D /* CSGPrimative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EAC2BD1BB8A55500E1D855 /* CSGPrimative.swift */; };
-		683E9DFD1BDB0AF80054E87D /* CSGCube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B661BD521F6005E1FCD /* CSGCube.swift */; };
-		683E9DFE1BDB0AF80054E87D /* CSGSphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B691BD529EB005E1FCD /* CSGSphere.swift */; };
-		683E9DFF1BDB0AF80054E87D /* CSGCylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B6E1BD52B99005E1FCD /* CSGCylinder.swift */; };
+		683E9DFD1BDB0AF80054E87D /* CSGBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B661BD521F6005E1FCD /* CSGBox.swift */; };
+		683E9DFE1BDB0AF80054E87D /* CSGElipsoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B691BD529EB005E1FCD /* CSGElipsoid.swift */; };
+		683E9DFF1BDB0AF80054E87D /* CSGCappedCone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B6E1BD52B99005E1FCD /* CSGCappedCone.swift */; };
 		683E9E001BDB0AF80054E87D /* CSGOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B5A1BD43E46005E1FCD /* CSGOperation.swift */; };
 		683E9E011BDB0AF80054E87D /* CSGUnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B5D1BD43EB0005E1FCD /* CSGUnion.swift */; };
 		683E9E021BDB0AF80054E87D /* CSGIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B601BD43EC9005E1FCD /* CSGIntersection.swift */; };
@@ -42,10 +42,6 @@
 		683E9E081BDB0AF80054E87D /* OpenSCADCSGLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AB021BC07A6E00E6D80F /* OpenSCADCSGLexer.swift */; };
 		683E9E091BDB0AF80054E87D /* OpenSCADCSGGrammar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BE79261BC716BA00DEFE81 /* OpenSCADCSGGrammar.swift */; };
 		683E9E0A1BDB0AF80054E87D /* OpenSCADCSGParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AB0D1BC1332500E6D80F /* OpenSCADCSGParser.swift */; };
-		683E9E0E1BDD0CBB0054E87D /* BOILERPLATE in Resources */ = {isa = PBXBuildFile; fileRef = 683E9E0D1BDD0CBB0054E87D /* BOILERPLATE */; };
-		683E9E101BDD0F9A0054E87D /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 683E9E0F1BDD0F9A0054E87D /* TODO.md */; };
-		683E9E111BDD0F9A0054E87D /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = 683E9E0F1BDD0F9A0054E87D /* TODO.md */; };
-		683E9E131BDD17DE0054E87D /* AUTHORS in Resources */ = {isa = PBXBuildFile; fileRef = 683E9E121BDD17DE0054E87D /* AUTHORS */; };
 		6866C3EE1BA86E7C0080F56A /* operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6866C3ED1BA86E7C0080F56A /* operators.swift */; };
 		6877AAFD1BC02CEF00E6D80F /* interval4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AAFC1BC02CEF00E6D80F /* interval4.swift */; };
 		6877AAFF1BC0386500E6D80F /* double4_extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6877AAFE1BC0386500E6D80F /* double4_extra.swift */; };
@@ -60,9 +56,9 @@
 		68824B5E1BD43EB0005E1FCD /* CSGUnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B5D1BD43EB0005E1FCD /* CSGUnion.swift */; };
 		68824B611BD43EC9005E1FCD /* CSGIntersection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B601BD43EC9005E1FCD /* CSGIntersection.swift */; };
 		68824B641BD43EE9005E1FCD /* CSGDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B631BD43EE9005E1FCD /* CSGDifference.swift */; };
-		68824B671BD521F6005E1FCD /* CSGCube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B661BD521F6005E1FCD /* CSGCube.swift */; };
-		68824B6A1BD529EB005E1FCD /* CSGSphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B691BD529EB005E1FCD /* CSGSphere.swift */; };
-		68824B6F1BD52B99005E1FCD /* CSGCylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B6E1BD52B99005E1FCD /* CSGCylinder.swift */; };
+		68824B671BD521F6005E1FCD /* CSGBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B661BD521F6005E1FCD /* CSGBox.swift */; };
+		68824B6A1BD529EB005E1FCD /* CSGElipsoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B691BD529EB005E1FCD /* CSGElipsoid.swift */; };
+		68824B6F1BD52B99005E1FCD /* CSGCappedCone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B6E1BD52B99005E1FCD /* CSGCappedCone.swift */; };
 		68824B781BD53FA0005E1FCD /* Voxel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68824B771BD53FA0005E1FCD /* Voxel.swift */; };
 		68BB68AE1BD135E40059E84F /* OpenSCADCSGError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB68AD1BD135E40059E84F /* OpenSCADCSGError.swift */; };
 		68BB68B11BD1360E0059E84F /* OpenSCADCSGToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BB68B01BD1360E0059E84F /* OpenSCADCSGToken.swift */; };
@@ -117,9 +113,9 @@
 		68824B5D1BD43EB0005E1FCD /* CSGUnion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGUnion.swift; sourceTree = "<group>"; };
 		68824B601BD43EC9005E1FCD /* CSGIntersection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGIntersection.swift; sourceTree = "<group>"; };
 		68824B631BD43EE9005E1FCD /* CSGDifference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGDifference.swift; sourceTree = "<group>"; };
-		68824B661BD521F6005E1FCD /* CSGCube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGCube.swift; sourceTree = "<group>"; };
-		68824B691BD529EB005E1FCD /* CSGSphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGSphere.swift; sourceTree = "<group>"; };
-		68824B6E1BD52B99005E1FCD /* CSGCylinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGCylinder.swift; sourceTree = "<group>"; };
+		68824B661BD521F6005E1FCD /* CSGBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGBox.swift; sourceTree = "<group>"; };
+		68824B691BD529EB005E1FCD /* CSGElipsoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGElipsoid.swift; sourceTree = "<group>"; };
+		68824B6E1BD52B99005E1FCD /* CSGCappedCone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGCappedCone.swift; sourceTree = "<group>"; };
 		68824B771BD53FA0005E1FCD /* Voxel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Voxel.swift; sourceTree = "<group>"; };
 		68BB68AD1BD135E40059E84F /* OpenSCADCSGError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSCADCSGError.swift; sourceTree = "<group>"; };
 		68BB68B01BD1360E0059E84F /* OpenSCADCSGToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSCADCSGToken.swift; sourceTree = "<group>"; };
@@ -187,9 +183,9 @@
 			isa = PBXGroup;
 			children = (
 				68EAC2BD1BB8A55500E1D855 /* CSGPrimative.swift */,
-				68824B661BD521F6005E1FCD /* CSGCube.swift */,
-				68824B691BD529EB005E1FCD /* CSGSphere.swift */,
-				68824B6E1BD52B99005E1FCD /* CSGCylinder.swift */,
+				68824B661BD521F6005E1FCD /* CSGBox.swift */,
+				68824B691BD529EB005E1FCD /* CSGElipsoid.swift */,
+				68824B6E1BD52B99005E1FCD /* CSGCappedCone.swift */,
 			);
 			name = Primatives;
 			sourceTree = "<group>";
@@ -416,8 +412,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				683E9E0E1BDD0CBB0054E87D /* BOILERPLATE in Resources */,
-				683E9E131BDD17DE0054E87D /* AUTHORS in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +423,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				68824B641BD43EE9005E1FCD /* CSGDifference.swift in Sources */,
-				683E9E101BDD0F9A0054E87D /* TODO.md in Sources */,
 				6877AB031BC07A6E00E6D80F /* OpenSCADCSGLexer.swift in Sources */,
 				6877AB0E1BC1332500E6D80F /* OpenSCADCSGParser.swift in Sources */,
 				68C207631BA074440007937D /* unique_array.swift in Sources */,
@@ -440,11 +433,11 @@
 				68824B781BD53FA0005E1FCD /* Voxel.swift in Sources */,
 				68824B611BD43EC9005E1FCD /* CSGIntersection.swift in Sources */,
 				68EAC2C21BB9A2B200E1D855 /* Interval.swift in Sources */,
-				68824B671BD521F6005E1FCD /* CSGCube.swift in Sources */,
+				68824B671BD521F6005E1FCD /* CSGBox.swift in Sources */,
 				687FADB21BA6C11700453203 /* int_extra.swift in Sources */,
 				687FADAC1BA2140600453203 /* dictionary_extra.swift in Sources */,
 				6866C3EE1BA86E7C0080F56A /* operators.swift in Sources */,
-				68824B6A1BD529EB005E1FCD /* CSGSphere.swift in Sources */,
+				68824B6A1BD529EB005E1FCD /* CSGElipsoid.swift in Sources */,
 				6877AAFD1BC02CEF00E6D80F /* interval4.swift in Sources */,
 				6877AB011BC03E4600E6D80F /* double4x4_extra.swift in Sources */,
 				6828EF3C1BE10FCC000C1B2E /* int4_extra.swift in Sources */,
@@ -461,7 +454,7 @@
 				687FADB41BA6C1BE00453203 /* double_extra.swift in Sources */,
 				68BB68B11BD1360E0059E84F /* OpenSCADCSGToken.swift in Sources */,
 				68C207651BA09B000007937D /* string_extra.swift in Sources */,
-				68824B6F1BD52B99005E1FCD /* CSGCylinder.swift in Sources */,
+				68824B6F1BD52B99005E1FCD /* CSGCappedCone.swift in Sources */,
 				68824B5E1BD43EB0005E1FCD /* CSGUnion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,9 +466,9 @@
 				683E9DFA1BDB0AF80054E87D /* CSGMatch.swift in Sources */,
 				683E9DFB1BDB0AF80054E87D /* CSGObject.swift in Sources */,
 				683E9DFC1BDB0AF80054E87D /* CSGPrimative.swift in Sources */,
-				683E9DFD1BDB0AF80054E87D /* CSGCube.swift in Sources */,
-				683E9DFE1BDB0AF80054E87D /* CSGSphere.swift in Sources */,
-				683E9DFF1BDB0AF80054E87D /* CSGCylinder.swift in Sources */,
+				683E9DFD1BDB0AF80054E87D /* CSGBox.swift in Sources */,
+				683E9DFE1BDB0AF80054E87D /* CSGElipsoid.swift in Sources */,
+				683E9DFF1BDB0AF80054E87D /* CSGCappedCone.swift in Sources */,
 				683E9E001BDB0AF80054E87D /* CSGOperation.swift in Sources */,
 				683E9E011BDB0AF80054E87D /* CSGUnion.swift in Sources */,
 				683E9E021BDB0AF80054E87D /* CSGIntersection.swift in Sources */,
@@ -496,7 +489,6 @@
 				683E9DF01BDB0AE10054E87D /* string_extra.swift in Sources */,
 				683E9DF11BDB0AE10054E87D /* CollectionType_extra.swift in Sources */,
 				683E9DF21BDB0AE10054E87D /* functions.swift in Sources */,
-				683E9E111BDD0F9A0054E87D /* TODO.md in Sources */,
 				683E9DF31BDB0AE10054E87D /* dictionary_extra.swift in Sources */,
 				683E9DF41BDB0AE10054E87D /* unique_array.swift in Sources */,
 				683E9DF51BDB0AE10054E87D /* CSet.swift in Sources */,
